@@ -1,102 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>WALSIM</title>
-
+	<title>Slider</title>
 	<style>
-		.container {
-			margin-top: 30px;
+		.slider-container {
+			max-width: 400px;
+			position: relative;
+			margin: auto;
 		}
-		.section--headline {
-			color: #707070;
-			padding-left: 20px;
-			position :relative;
+		.slide {
+			display: none;
 		}
-		.section--headline::after {
+
+		.prev, 
+		.next {
+			cursor: pointer;
 			position: absolute;
-			background: #707070;
-			width: 30px;
-			height: 2px;
-			left: 50%;
-			top: 10px;
-			transform: translateX(-50px);
-		}
-
-		.frame--container {
-			float: left;
-			width: 20%;
-			height:  900px;
-			background-color: #F5F5F5;
-			border-top: 2px solid tomato;
-			padding: 30px;
-			box-sizing: border-box;
+			top: 50%;
+			height: 50px;
+			transform: translateY(-25px);
+			font-size: 16px;
+			font-weight: bold;
+			transition: 0.6s ease;
 
 		}
-		.showroom {
-			float: right;
-			width: 80%;
-			height:  900px;
-			margin: 0 auto;
-			background: #DCD9CD;
-			border-top: 2px solid #606060;
-
+		.prev {
+			left:0;
 		}
-
-		.object--draggable {
-			background: #ffffff;
+		.next {
+			right: 0;
 		}
-		.object--draggable-name {
-			text-align: center;
-			line-height: 100px;    
-			vertical-align: middle;
-		}
-		.square {
-			width :100px;
-			height: 100px;
-			resize: both;
-			overflow: auto;
-		}
-		
 	</style>
 </head>
 <body>
-	<div class="container">
-		<!-- aside -->
-		<aside class="frame--container">
-			<h2 class="section--headline">Frame Collection</h2>
-			<div class="object--collection">
-				<div class="object--draggable square" draggable="true" ondragstart="drag(event)" >
-					<span object--draggable-name>square / Rectangle</span>
-					
-				</div>
-			</div>
-			
-		</aside>
-
-		 <!-- showroom -->
-		<div class="showroom" ondragover="allowDrop(e)" ondrop="drop(event)">
-			<h2 class="section--headline">Showroom</h2>
-			
-		</div>
 
 
+<div class="slider-container">
+	<div class="slide">
+		<img src="https://picsum.photos/400/250" alt="image One">
+		<p>ctetur adipisicing elit. Ex ipsam provident reprehenderit delectus nobis, laboriosam.</p>
 	</div>
-	<script>
-		allowDrop = (e) => {
-			e.preventDefault();
+	<div class="slide">
+		<img src="https://picsum.photos/400/250?image=0" alt="image Two">
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex ipsam provident reprehen laboriosam.</p>
+	</div>
+	<div class="slide">
+		<img src="https://picsum.photos/400/250" alt="image Three">
+		<p>Lorem ipsum dolor sit amet, consectetur adlectus nobis, laboriosam.</p>
+	</div>
+	<div class="slide">
+		<img src="https://picsum.photos/400/250?image=0" alt="image Four">
+		<p>Lorem ipsum dolor sit amet, cpisicing elit. Ex ipsam provident reprehenderit delectus nobis, laboriosam.</p>
+	</div>
+	<a onclick="plusSlides(-1)" class="prev"> Previous </a>
+	<a onclick="plusSlides(1)" class="next"> Next </a>
+</div>	
 
+<script>
+
+	var slideIndex = 1;
+	showSlides(slideIndex);
+
+	//Next/Previous controls
+	function plusSlides(n) {
+		showSlides(slideIndex += n);
+	}
+
+	function showSlides(n) {
+		var i;
+		var slides =  document.getElementsByClassName("slide");
+		if (n > slides.length) {
+			slideIndex = 1;
 		}
-		drag = (e) => {
-			e.dataTransfer.setData("text", e.target.id);
-		}
-		drop = (e) => {
-			e.preventDefault();
-			var data = e.dataTransfer.getData("text");
-			e.target.appendChild(document.getElementById(data));
+		if (n < 1) {
+			slideIndex = slides.length;
 		}
 
-	</script>
+		for(i=0; i < slides.length; i++) {
+			slides[i].style.display="none";
+		}
+		slides[slideIndex-1].style.display = "block";
+
+	}
+
+
+</script>
+
+
 </body>
-
 </html>
